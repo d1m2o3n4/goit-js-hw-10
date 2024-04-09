@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 250px;
+  margin-top: 20px;
+}
+.js-input-delay {
+  width: 240px;
+  height: 20px;
+}
