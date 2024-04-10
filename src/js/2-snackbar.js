@@ -3,33 +3,31 @@ import 'izitoast/dist/css/iziToast.min.css';
 const formSnackbar = document.querySelector('.form');
 formSnackbar.addEventListener('submit', event => {
   event.preventDefault();
-  const delayInput = parseInt(document.querySelector('.js-input-delay').value);
+  const delayInput = parseInt(
+    document.querySelector('input[name="delay"]').value
+  );
+
   const radioCheck = document.querySelector(
     'input[name="state"]:checked'
   ).value;
+
   function checkValue(value) {
-    return new Promise((resolve, reject) => {
-      if (radioCheck === 'rejected') {
-        return setTimeout(() => reject(), delayInput);
-      }
-      setTimeout(() => resolve(), delayInput);
+    const prom = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (radioCheck === 'fulfilled') {
+          resolve(`Fulfilled promise in ${value}ms`);
+        } else {
+          reject(`Rejected promise in ${value}ms`);
+        }
+      }, value);
     });
+    return prom;
   }
   checkValue(delayInput)
-    .then(response => {
-      iziToast.success({
-        icon: '  ',
-        iconText: '✅',
-        message: ` Fulfilled promise in ${delayInput}ms`,
-        position: 'topRight',
-      });
+    .then(res => {
+      iziToast.success({ message: res });
     })
-    .catch(error => {
-      iziToast.error({
-        icon: '  ',
-        iconText: '❌',
-        message: ` Rejected promise in ${delayInput}ms`,
-        position: 'topRight',
-      });
+    .catch(err => {
+      iziToast.error({ message: err });
     });
 });
