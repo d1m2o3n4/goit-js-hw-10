@@ -25,9 +25,9 @@ formSnackbar.addEventListener('submit', event => {
   }
   checkValue(delayInput)
     .then(res => {
-      iziToast.success({ message: res });
+      iziToast.success({ message: res, position: 'topRight' });
     })
     .catch(err => {
-      iziToast.error({ message: err });
+      iziToast.error({ message: err, position: 'topRight' });
     });
 });
